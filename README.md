@@ -20,8 +20,8 @@ compute_dp_sgd_privacy_statement(6000, 60, 200, 5.75, 1e-5, False) # => eps=1
 compute_dp_sgd_privacy_statement(6000, 60, 200, 25,   1e-5, False) # => eps=0.2
 ```
 
-### 2. pyvacy
-pyvacy (https://github.com/ChrisWaites/pyvacy, under Apache-2.0 license) is a PyTorch version of an older version of Tensorflow Privacy. We use their sampling method.
+### 2. Pyvacy
+Pyvacy (https://github.com/ChrisWaites/pyvacy, under Apache-2.0 license) is a PyTorch version of an older version of Tensorflow Privacy. We use their sampling method.
 
 ### 3. CelebA dataset
 Torchvision cannot download CelebA (https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) automatically. You need to manually download this dataset, then specify its path in datasets.py (line 39 and 40). You can start with MNIST and FMNIST for convenience.
