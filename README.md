@@ -26,6 +26,9 @@ Pyvacy (https://github.com/ChrisWaites/pyvacy, under Apache-2.0 license) is a Py
 ### 3. CelebA dataset
 Torchvision cannot download CelebA (https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) automatically. You need to manually download this dataset, then specify its path in datasets.py (line 39 and 40). You can start with MNIST and FMNIST for convenience.
 
+### 4. Install necessary packages
+Install necessary packages in Requirements.txt.
+
 ## Running DP-kernel
 ### Training conditional model
 ```
