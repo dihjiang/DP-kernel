@@ -75,3 +75,5 @@ python3 -m pytorch_fid ./Imgs/mnist/True  ./Imgs/mnist/Gen/60000  --batch-size 1
 python3 test_union.py --dataset mnist --dataroot ./data/mnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 20000 --gpu_device 0 --experiment "mnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 1.0  --n_class 10  --ML_ACC  --num_samples 60000  --seed 1
 ```
 
+## Acknowledgement
+The MMD code is mostly referenced from [MMD-GAN in NeuRIPS 2017](https://github.com/OctoberChang/MMD-GAN).
