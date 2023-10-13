@@ -76,4 +76,4 @@ python3 test_union.py --dataset mnist --dataroot ./data/mnist --batch_size 60 --
 ```
 
 ## Acknowledgement
-The MMD code is mostly referenced from [MMD-GAN in NeuRIPS 2017](https://github.com/OctoberChang/MMD-GAN).
+The MMD code is mostly referenced from [MMD-GAN in NeurIPS 2017](https://github.com/OctoberChang/MMD-GAN).
