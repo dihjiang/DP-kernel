@@ -6,7 +6,7 @@ This repo is developed using Python 3.6 (but I believe it should also be compati
 
 ## Preparation
 ### 1. Tensorflow Privacy
-We use this standalone library to compute (ε, δ)-DP of an algorithm given training parameters, regardless of what model you choose. This library does not affect running code in our repo, so you can ignore this one if you are not interested. For verification, you can follow https://github.com/tensorflow/privacy to install their privacy library.  We installed it using Python 3.9.10. Run the following code (either in script or console):
+We use this standalone library to compute (ε, δ)-DP of an algorithm given training parameters, regardless of what model you choose. This library does not affect running code in our repo, so you can ignore this one if you are not interested. For verification, you can follow [this link](https://github.com/tensorflow/privacy) to install their privacy library.  We installed it using Python 3.9.10. Run the following code (either in script or console):
 ```
 from tensorflow_privacy.privacy.analysis.compute_dp_sgd_privacy_lib import * # (wait for 1-2 min)
 # params for conditional training, the first two params define subsampling rate, the third one is training epochs (equivalent to 200 * 60000 / 60 = 200000 training iterations), the fourth one is noise multiplier, the fifth one is delta.
@@ -21,10 +21,10 @@ compute_dp_sgd_privacy_statement(6000, 60, 200, 25,   1e-5, False) # => eps=0.2
 ```
 
 ### 2. Pyvacy
-Pyvacy (https://github.com/ChrisWaites/pyvacy, under Apache-2.0 license) is a PyTorch version of an older version of Tensorflow Privacy. We use their sampling method.
+[Pyvacy](https://github.com/ChrisWaites/pyvacy) (under Apache-2.0 license) is a PyTorch version of an older version of Tensorflow Privacy. We use their sampling method.
 
 ### 3. CelebA dataset
-Torchvision cannot download CelebA (https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) automatically. You need to manually download this dataset, then specify its path in datasets.py (line 39 and 40). You can start with MNIST and FMNIST for convenience.
+Torchvision cannot download [CelebA](https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) automatically. You need to manually download this dataset, then specify its path in datasets.py (line 39 and 40). You can start with MNIST and FMNIST for convenience.
 
 ### 4. Install necessary packages
 Install necessary packages in requirements.txt.
