@@ -33,22 +33,30 @@ Install necessary packages in requirements.txt.
 ### Training conditional model
 ```
 # change --noise among [0.6, 1.95, 8.0] to target epsilon=[10, 1, 0.2].
-python3 DPCondmmdG_kernel_prod.py --dataset mnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --max_iter 200002 --gpu_device 0 --experiment "mnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 0.6  --vis_step 50000  --lr 5e-5  --n_class 10
+python3 DPCondmmdG_kernel_prod.py --dataset mnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --max_iter 200002 --gpu_device 0 --experiment "mnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --vis_step 50000  --lr 5e-5  --n_class 10
 
-python3 DPCondmmdG_kernel_prod.py --dataset fmnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --max_iter 200002 --gpu_device 0 --experiment "fmnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 0.6  --vis_step 50000  --lr 5e-5  --n_class 10
+python3 DPCondmmdG_kernel_prod.py --dataset fmnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --max_iter 200002 --gpu_device 0 --experiment "fmnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --vis_step 50000  --lr 5e-5  --n_class 10
 
 python3 DPCondmmdG_kernel_prod.py --dataset celeba --batch_size 60 --image_size 32 --nc 3  --nz 10 --max_iter 200002 --gpu_device 0 --experiment "celeba_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --vis_step 50000  --lr 5e-5  --n_class 2
 ```
 
 ### Test conditional model
 ```
-# Change dataset name, experiment name, and noise level accordingly for other settings.
+# Change noise level accordingly for other epsilon.
 # Compute FID.
-python3 test.py --dataset mnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "mnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 0.60  --compute_FID  --num_samples 60000
-python3 -m pytorch_fid ./Imgs/mnist/True  ./Imgs/mnist/Gen/60000  --batch-size 100   # change dataset name in the path for other datasets
+python3 test.py --dataset mnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "mnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --compute_FID  --num_samples 60000
+python3 -m pytorch_fid ./Imgs/mnist/True  ./Imgs/mnist/Gen/60000  --batch-size 100
+
+python3 test.py --dataset fmnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "fmnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --compute_FID  --num_samples 60000
+python3 -m pytorch_fid ./Imgs/fmnist/True  ./Imgs/fmnist/Gen/60000  --batch-size 100
+
+python3 test.py --dataset celeba  --batch_size 60 --image_size 32 --nc 3  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "celeba_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --n_class 2  --compute_FID  --num_samples 60000
+python3 -m pytorch_fid ./Imgs/celeba/True  ./Imgs/celeba/Gen/60000  --batch-size 100 
 
 # use 5 different seeds for running ML classification tasks 5 times.
-python3 test.py --dataset mnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "mnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 0.60  --ML_ACC  --num_samples 60000  --seed 1
+python3 test.py --dataset mnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "mnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --ML_ACC  --num_samples 60000  --seed 1
+python3 test.py --dataset fmnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "fmnist_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --ML_ACC  --num_samples 60000  --seed 1
+python3 test.py --dataset celeba --batch_size 60 --image_size 32 --nc 3  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "celeba_DPCondmmdG_kernel_prod"  --sigma_list 1 2 4 8 16  --noise 8.0  --ML_ACC  --num_samples 60000  --seed 1
 ```
 
 
@@ -57,22 +65,31 @@ python3 test.py --dataset mnist --batch_size 60 --image_size 32 --nc 1  --nz 10 
 # change noise among [1.0, 5.75, 25.0] on MNISTs to target epsilon=[10, 1, 0.2].
 # change noise among [0.6, 1.95, 8.0] on CelebA to target epsilon=[10, 1, 0.2].
 # Also, change class number in --select CLASS_NUMBER (0-9 for MNIST and FMNIST, 0-1 for CelebA) to train unconditional model on each class. You can run them in parallel.
-python3 DPmmdG_per_class.py --dataset mnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --max_iter 20002 --gpu_device 0 --experiment "mnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 1.0  --vis_step 5000  --lr 5e-5  --select 0
+python3 DPmmdG_per_class.py --dataset mnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --max_iter 20002 --gpu_device 0 --experiment "mnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 25.0  --vis_step 5000  --lr 5e-5  --select 0
 
-python3 DPmmdG_per_class.py --dataset fmnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --max_iter 20002 --gpu_device 0 --experiment "fmnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 1.0  --vis_step 5000  --lr 5e-5  --select 0
+python3 DPmmdG_per_class.py --dataset fmnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --max_iter 20002 --gpu_device 0 --experiment "fmnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 25.0  --vis_step 5000  --lr 5e-5  --select 0
 
-python3 DPmmdG_per_class.py --dataset celeba  --batch_size 30 --image_size 32 --nc 3  --nz 10 --max_iter 200002 --gpu_device 0 --experiment "celeba_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 8.0  --vis_step 50000  --lr 5e-5  --select 0  --seed 1
+python3 DPmmdG_per_class.py --dataset celeba  --batch_size 30 --image_size 32 --nc 3  --nz 10 --max_iter 200002 --gpu_device 0 --experiment "celeba_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 8.0  --vis_step 50000  --lr 5e-5  --select 0
 ```
 
 ### Test parallel model
 ```
-# Change dataset name, experiment name, and noise level accordingly for other settings.
+# Change noise level accordingly for other settings.
 # Compute FID.
-python3 test_union.py --dataset mnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 20000 --gpu_device 0 --experiment "mnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 1.0  --n_class 10  --compute_FID  --num_samples 60000
-python3 -m pytorch_fid ./Imgs/mnist/True  ./Imgs/mnist/Gen/60000  --batch-size 100   # change dataset name in the path for other datasets
+python3 test_union.py --dataset mnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 20000 --gpu_device 0 --experiment "mnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 25.0  --n_class 10  --compute_FID  --num_samples 60000
+python3 -m pytorch_fid ./Imgs/mnist/True  ./Imgs/mnist/Gen/60000  --batch-size 100
+
+python3 test_union.py --dataset fmnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 20000 --gpu_device 0 --experiment "fmnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 25.0  --n_class 10  --compute_FID  --num_samples 60000
+python3 -m pytorch_fid ./Imgs/fmnist/True  ./Imgs/fmnist/Gen/60000  --batch-size 100
+
+python3 test_union.py --dataset celeba  --batch_size 30 --image_size 32 --nc 3  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "celeba_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 8.0  --n_class 2  --compute_FID  --num_samples 60000
+python3 -m pytorch_fid ./Imgs/celeba/True  ./Imgs/celeba/Gen/60000  --batch-size 100
+
 
 # use 5 different seeds for running ML classification tasks 5 times.
-python3 test_union.py --dataset mnist --dataroot ./data/mnist --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 20000 --gpu_device 0 --experiment "mnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 1.0  --n_class 10  --ML_ACC  --num_samples 60000  --seed 1
+python3 test_union.py --dataset mnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 20000 --gpu_device 0 --experiment "mnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 25.0  --n_class 10  --ML_ACC  --num_samples 60000  --seed 1
+python3 test_union.py --dataset fmnist  --batch_size 60 --image_size 32 --nc 1  --nz 10 --num_iters 20000 --gpu_device 0 --experiment "fmnist_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 25.0  --n_class 10  --ML_ACC  --num_samples 60000  --seed 1
+python3 test_union.py --dataset celeba  --batch_size 30 --image_size 32 --nc 3  --nz 10 --num_iters 200000 --gpu_device 0 --experiment "celeba_DPmmdG_per_class"  --sigma_list 1 2 4 8 16  --noise 8.0  --n_class 2  --ML_ACC  --num_samples 60000  --seed 1
 ```
 
 ## Acknowledgement
