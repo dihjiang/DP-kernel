@@ -1,6 +1,6 @@
 # DP-kernel
 
-This code repo corresponds to the paper "Functional Renyi Differential Privacy for Generative Modeling" in NeurIPS 2023.
+This code repo corresponds to the paper ["Functional Renyi Differential Privacy for Generative Modeling"](https://openreview.net/forum?id=GzlDKZlwie) in NeurIPS 2023.
 
 This repo is developed using Python 3.6 (but I believe it should also be compatible with higher versions of Python).
 
